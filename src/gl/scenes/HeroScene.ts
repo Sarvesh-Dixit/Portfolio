@@ -242,14 +242,15 @@ export class HeroScene implements GLScene {
     this.pointMat.uniforms.uAspect.value = aspect;
     this.pointMat.uniforms.uDpr.value = ctx.dpr;
 
-    // Resting composition: a three-quarter view from the upper left, beside
+    // Resting composition: a three-quarter view from the upper right, beside
     // the headline on desktop and above it on portrait screens.
     if (ctx.mobile && aspect < 1) {
-      this.restPos.set(-1.1, 0.4, 8.4);
-      this.restLook.set(-0.2, -1.5, 0);
+      this.restPos.set(1.1, 0.5, 9.4);
+      this.restLook.set(0.2, -1.75, 0);
     } else {
-      this.restPos.set(-2.1, 0.7, 4.9);
-      this.restLook.set(-1.05, -0.3, 0);
+      // Viewed from the right, so the screen turns toward the headline on the left.
+      this.restPos.set(0.55, 0.7, 4.9);
+      this.restLook.set(-1.38, -0.3, 0);
     }
   }
 
@@ -271,7 +272,7 @@ export class HeroScene implements GLScene {
     this.camera.lookAt(this.look);
 
     this.device.position.y = Math.sin(f.time * 0.6) * 0.04 * a;
-    this.device.rotation.y = (0.12 + f.pointer.x * 0.1) * a;
+    this.device.rotation.y = (-0.12 + f.pointer.x * 0.1) * a;
     this.device.rotation.x = -f.pointer.y * 0.05 * a;
     this.device.rotation.z = Math.sin(f.time * 0.45) * 0.015 * a;
 

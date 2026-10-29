@@ -82,8 +82,8 @@ export class Terminal {
     add(knob(0.042), COLORS.accent, 0.43, -0.62, 0.012).rotation.x = Math.PI / 2;
     add(box(0.17, 0.018, 0.012, 0.004), COLORS.seam, 0.28, -0.7, 0.004, false);
 
-    // Side slot the paper prints from.
-    add(box(0.03, 0.5, 0.06, 0.012), COLORS.seam, -0.62, 0.1, -0.11, false);
+    // Side slot the paper prints from (right side, toward the open space).
+    add(box(0.03, 0.5, 0.06, 0.012), COLORS.seam, 0.62, 0.1, -0.11, false);
 
     // Base with card module and tray.
     add(box(1.22, 0.52, 0.4, 0.06), COLORS.base, 0, -1.035, -0.23);
@@ -95,9 +95,9 @@ export class Terminal {
 
     // Paper strip anchored at the slot, growing to the left.
     const paperGeo = new THREE.PlaneGeometry(1, PAPER_H);
-    paperGeo.translate(-0.5, 0, 0);
+    paperGeo.translate(0.5, 0, 0);
     this.paper = new THREE.Mesh(paperGeo, paperMaterial());
-    this.paper.position.set(-0.64, 0.1, -0.11);
+    this.paper.position.set(0.64, 0.1, -0.11);
     this.flyer = new THREE.Mesh(paperGeo, paperMaterial());
     this.flyer.visible = false;
     this.group.add(this.paper, this.flyer);
@@ -123,8 +123,8 @@ export class Terminal {
 
     if (this.flyT >= 0) {
       const t = (this.flyT += dt);
-      this.flyer.position.set(-0.64 - t * 0.35, 0.1 - t * t * 0.9, -0.11 + t * 0.2);
-      this.flyer.rotation.set(t * 0.6, t * 0.9, t * 1.3);
+      this.flyer.position.set(0.64 + t * 0.35, 0.1 - t * t * 0.9, -0.11 + t * 0.2);
+      this.flyer.rotation.set(t * 0.6, -t * 0.9, -t * 1.3);
       this.flyer.material.uniforms.uAlpha.value = Math.max(0, 1 - t / 1.4);
       if (t > 1.4) {
         this.flyT = -1;
